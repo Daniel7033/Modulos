@@ -1,6 +1,7 @@
 package com.sena.shoestore.IRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,7 +15,7 @@ public interface IDescripcionVentasRepository extends IBaseRepository<Descripcio
     @Query(value = "SELECT "
 	+ "v.id , "
     + "producto_id, "
-    + "p.nombre_producto, nombreProducto "
+    + "p.nombre_producto as nombreProducto, "
     + "p.descripcion, "
     + "d.cantidad, "
     + "p.precio, "
@@ -22,7 +23,7 @@ public interface IDescripcionVentasRepository extends IBaseRepository<Descripcio
     + "from descripcion_ventas d "
     + "Inner join productos p ON d.producto_id = p.id "
     + "inner join ventas v ON d.ventas_id = v.id "
-    + "WHERE v.id LIKE CONCAT('%' :id '%');"
+    + "WHERE v.id = :id ;"
     , nativeQuery = true)
-    List<IDescripcionVentasDto> getDescripcion(@Param("id") Long id);
+    Optional<DescripcionVentas> getDescripcion(@Param("id") Long id);
 }

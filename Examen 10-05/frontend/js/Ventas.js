@@ -34,131 +34,13 @@ function save() {
     }
 }
 
-// //Función para actualizar datos
-// function update() {
-//     try {
-//         var selectedCliente = parseInt($("#selected_cliente").val());
-//         if (isNaN(selectedCliente) || selectedCliente == null) {
-//             console.error("Error con ciudad.");
-//             return;
-//         }
-//         var selectedProducto = parseInt($("#selected_producto").val());
-//         if (isNaN(selectedProducto) || selectedProducto == null) {
-//             console.error("Error con ciudad.");
-//             return;
-//         }
-//         var dataVenta = {
-//             'cliente': {'id': selectedCliente },
-//             'fechaVenta': parseInt($('#fechaVenta').val()),
-//             'estado': parseInt($('#estado').val())
-//         };
-//         var dataDetalle = {
-//             'producto': {'id': selectedProducto },
-//             'precio': parseInt($('#precio').val()),
-//             'cantidad': parseInt($('#cantidad').val()),
-//             'descuento': parseInt($('#descuento').val()),
-//             'iva': parseInt($('#iva').val()),
-//             'estado': true
-//         };
-//         var jsonData1 = JSON.stringify(dataVenta);
-//         var jsonData2 = JSON.stringify(dataDetalle);
-//         var id = parseInt($('#id').val());
-//         $.ajax({
-//             url: 'http://localhost:7033/shoe-store/v1/api/ventas/' + id,
-//             method: 'PUT',
-//             dataType: 'json',
-//             contentType: 'application/json',
-//             data: jsonData1,
-//             success: function (result) {
-//                 alert("Actualizado");
-//                 loadData();
-//                 clearData();
-
-//                 var btnAgregar = $('button[name="btnAgregar"]');
-//                 btnAgregar.text('Guardar');
-//                 btnAgregar.attr('onclick', 'save()');
-//             },
-//             error: function (error) {
-//                 console.error("Error: ", error);
-//             }
-//         });
-//         $.ajax({
-//             url: 'http://localhost:7033/shoe-store/v1/api/descripcion_ventas/' + id,
-//             method: 'PUT',
-//             dataType: 'json',
-//             contentType: 'application/json',
-//             data: jsonData2,
-//             success: function (result) {
-//                 alert("Actualizado");
-//                 loadData();
-//                 clearData();
-
-//                 var btnAgregar = $('button[name="btnAgregar"]');
-//                 btnAgregar.text('Guardar');
-//                 btnAgregar.attr('onclick', 'save()');
-//             },
-//             error: function (error) {
-//                 console.error("Error: ", error);
-//             }
-//         });
-//     } catch {
-//         Error("Error al actualizar los registros");
-//     }
-// }
-
-// //Función para buscar datos por "id"
-// function findById(id) {
-//     $.ajax({
-//         url: 'http://localhost:7033/shoe-store/v1/api/ventas/' + id,
-//         method: 'GET',
-//         dataType: 'json',
-//         success: function (data) {
-//             $('#id').val(data.data.id);
-//             $('#cliente').val(data.data.cliente.name);
-//             $('#fechaVenta').val(data.data.fechaVenta);
-//             $('#cantidad').val(data.data.cantidad);
-//             $('#precio').val(data.data.precio);
-//             $('#iva').val(data.data.iva);
-//             $('#descuento').val(data.data.descuento);
-//             $('#estado').val(data.data.estado === true ? 1 : 0);
-
-//             var btnAgregar = $('button[name="btnAgregar"]');
-//             btnAgregar.text('Actualizar');
-//             btnAgregar.attr('onclick', 'update()');
-//         },
-//         error: function (error) {
-//             console.error('Error: ', error);
-//         }
-//     });
-// }
-
-// //Función para eliminar datos de manera permanente
-// function dropById(id) {
-//     $.ajax({
-//         url: 'http://localhost:7033/shoe-store/v1/api/producto/' + id,
-//         method: "DELETE",
-//         headers: {
-//             "Content-Type": "application/json"
-//         }
-//     }).done(function (result) {
-//         alert("Registro eliminado exitoso");
-//         loadData();
-//         clearData();
-//     }).fail(function (xhr, status, error) {
-//         console.error("Error al eliminar el registro:", error);
-//     });
-// }
-
-// //Función para eliminar datos de manera lógica
-// function deleteById(id) {
-
-// }
-
 //Función para limpiar datos
 function clearData() {
     $('#cliente').val('');
-    //$('#fechaVenta').val('');
-    //$('#estado').val('');
+    
+    var btnAgregar = $('button[name="btnAgregar"]');
+    btnAgregar.text('Guardar');
+    btnAgregar.attr('onclick', 'save()');
 }
 
 function tablas(){
@@ -183,7 +65,7 @@ function loadData() {
                 <td>${item.total}</td>
                 <td>${item.fechaVenta}</td>
                 <td>${item.estado === true ? 'PENDIENTE PAGO' || 'PAGADA' : 'CANCELADA'}</td>
-                <td><button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modal" onclick='detallesVenta()'>Ver Detalles</button></td>
+                <td><button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modal" onclick='detallesVenta(${item.id})'>Ver Detalles</button></td>
             </tr>`
                 });
             } else {
@@ -197,12 +79,14 @@ function loadData() {
     });
 }
 
-function detallesVenta() {
+function detallesVenta(id) {
+    console.log(id); //Me muestra el id de la venta
     $.ajax({
-        url: 'http://localhost:7033/shoe-store/v1/api/descripcion_ventas',
+        url: 'http://localhost:7033/shoe-store/v1/api/descripcion_ventas/' + id, //Se indefine por el controlador del backend
         method: 'GET',
         dataType: 'json',
         success: function (response) {
+            console.log(id); //Me muestra el id de manera indefinida
             var html = '';
             var data = response.data;
             if (Array.isArray(data)) {
@@ -212,7 +96,7 @@ function detallesVenta() {
                 <td>${item.producto.nombreProducto}</td> 
                 <td>${item.producto.descripcion} </td> 
                 <td>${item.producto.cantidad}</td>
-                <td>${item.producto.precio}</td>
+                <td>$${item.producto.precio}.00</td>
                 <td>${item.subTotal}</td>
             </tr>`
                 });
@@ -267,14 +151,3 @@ function loadCliente() { //Cliente
         }
     });
 }
-//FECHA ACTUAL: Código guiado por Registro.js del repositorio principal Actividad. 6-04
-document.addEventListener('DOMContentLoaded', function () {
-    loadData();
-    var fechaInput = document.getElementById('fechaVenta');
-    var hoy = new Date();
-    var dia = ('0' + hoy.getDate()).slice(-2); // Añade un cero si es necesario y toma los últimos dos dígitos
-    var mes = ('0' + (hoy.getMonth() + 1)).slice(-2); // Los meses van de 0 a 11, por lo que se suma 1
-    var ano = hoy.getFullYear();
-    var fechaHoy = `${ano}-${mes}-${dia}`; // Formato necesario para inputs de tipo 'date'
-    fechaInput.value = fechaHoy;
-}); 

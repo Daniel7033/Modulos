@@ -19,7 +19,7 @@ function save() {
             'cantidad': parseInt($('#cantidad').val()),
             'descuento': parseInt($('#descuento').val()),
             'iva': parseInt($('#iva').val()),
-            'estado': true
+            'estado': parseInt($('#estado').val())
         }
         var jsonData2 = JSON.stringify(dataDetalle);
         $.ajax({
@@ -42,120 +42,96 @@ function save() {
     }
 }
 
-// //Función para actualizar datos
-// function update() {
-//     try {
-//         var selectedCliente = parseInt($("#selected_cliente").val());
-//         if (isNaN(selectedCliente) || selectedCliente == null) {
-//             console.error("Error con ciudad.");
-//             return;
-//         }
-//         var selectedProducto = parseInt($("#selected_producto").val());
-//         if (isNaN(selectedProducto) || selectedProducto == null) {
-//             console.error("Error con ciudad.");
-//             return;
-//         }
-//         var dataVenta = {
-//             'cliente': {'id': selectedCliente },
-//             'fechaVenta': parseInt($('#fechaVenta').val()),
-//             'estado': parseInt($('#estado').val())
-//         };
-//         var dataDetalle = {
-//             'producto': {'id': selectedProducto },
-//             'precio': parseInt($('#precio').val()),
-//             'cantidad': parseInt($('#cantidad').val()),
-//             'descuento': parseInt($('#descuento').val()),
-//             'iva': parseInt($('#iva').val()),
-//             'estado': true
-//         };
-//         var jsonData1 = JSON.stringify(dataVenta);
-//         var jsonData2 = JSON.stringify(dataDetalle);
-//         var id = parseInt($('#id').val());
-//         $.ajax({
-//             url: 'http://localhost:7033/shoe-store/v1/api/ventas/' + id,
-//             method: 'PUT',
-//             dataType: 'json',
-//             contentType: 'application/json',
-//             data: jsonData1,
-//             success: function (result) {
-//                 alert("Actualizado");
-//                 loadData();
-//                 clearData();
+//Función para actualizar datos
+function update() {
+    try {
+        var selectedVentas = parseInt($("#selected_cliente").val());
+        if (isNaN(selectedVentas) || selectedVentas == null) {
+            console.error("Error con ciudad.");
+            return;
+        }
+        var selectedProducto = parseInt($("#selected_producto").val());
+        if (isNaN(selectedProducto) || selectedProducto == null) {
+            console.error("Error con ciudad.");
+            return;
+        }
+        var dataDetalle = {
+            'producto': {'id': selectedProducto },
+            'venta': {'id': selectedVentas },
+            'precio': parseInt($('#precio').val()),
+            'cantidad': parseInt($('#cantidad').val()),
+            'descuento': parseInt($('#descuento').val()),
+            'iva': parseInt($('#iva').val()),
+            'estado': true
+        };
+        var jsonData2 = JSON.stringify(dataDetalle);
+        var id = parseInt($('#id').val());
+        $.ajax({
+            url: 'http://localhost:7033/shoe-store/v1/api/descripcion_ventas/' + id,
+            method: 'PUT',
+            dataType: 'json',
+            contentType: 'application/json',
+            data: jsonData2,
+            success: function (result) {
+                alert("Actualizado");
+                loadData();
+                clearData();
 
-//                 var btnAgregar = $('button[name="btnAgregar"]');
-//                 btnAgregar.text('Guardar');
-//                 btnAgregar.attr('onclick', 'save()');
-//             },
-//             error: function (error) {
-//                 console.error("Error: ", error);
-//             }
-//         });
-//         $.ajax({
-//             url: 'http://localhost:7033/shoe-store/v1/api/descripcion_ventas/' + id,
-//             method: 'PUT',
-//             dataType: 'json',
-//             contentType: 'application/json',
-//             data: jsonData2,
-//             success: function (result) {
-//                 alert("Actualizado");
-//                 loadData();
-//                 clearData();
+                var btnAgregar = $('button[name="btnAgregar"]');
+                btnAgregar.text('Guardar');
+                btnAgregar.attr('onclick', 'save()');
+            },
+            error: function (error) {
+                console.error("Error: ", error);
+            }
+        });
+    } catch {
+        Error("Error al actualizar los registros");
+    }
+}
 
-//                 var btnAgregar = $('button[name="btnAgregar"]');
-//                 btnAgregar.text('Guardar');
-//                 btnAgregar.attr('onclick', 'save()');
-//             },
-//             error: function (error) {
-//                 console.error("Error: ", error);
-//             }
-//         });
-//     } catch {
-//         Error("Error al actualizar los registros");
-//     }
-// }
+//Función para buscar datos por "id"
+function findById(id) {
+    $.ajax({
+        url: 'http://localhost:7033/shoe-store/v1/api/descripcion_ventas/' + id,
+        method: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            $('#id').val(data.data.id);
+            $('#producto').val(data.data.producto.nombreProducto);
+            $('#venta').val(data.data.venta.id);
+            $('#cantidad').val(data.data.cantidad);
+            $('#precio').val(data.data.precio);
+            $('#iva').val(data.data.iva);
+            $('#descuento').val(data.data.descuento);
+            $('#estado').val(data.data.estado === true ? 1 : 0);
 
-// //Función para buscar datos por "id"
-// function findById(id) {
-//     $.ajax({
-//         url: 'http://localhost:7033/shoe-store/v1/api/ventas/' + id,
-//         method: 'GET',
-//         dataType: 'json',
-//         success: function (data) {
-//             $('#id').val(data.data.id);
-//             $('#cliente').val(data.data.cliente.name);
-//             $('#fechaVenta').val(data.data.fechaVenta);
-//             $('#cantidad').val(data.data.cantidad);
-//             $('#precio').val(data.data.precio);
-//             $('#iva').val(data.data.iva);
-//             $('#descuento').val(data.data.descuento);
-//             $('#estado').val(data.data.estado === true ? 1 : 0);
+            var btnAgregar = $('button[name="btnAgregar"]');
+            btnAgregar.text('Actualizar');
+            btnAgregar.attr('onclick', 'update()');
+        },
+        error: function (error) {
+            console.error('Error: ', error);
+        }
+    });
+}
 
-//             var btnAgregar = $('button[name="btnAgregar"]');
-//             btnAgregar.text('Actualizar');
-//             btnAgregar.attr('onclick', 'update()');
-//         },
-//         error: function (error) {
-//             console.error('Error: ', error);
-//         }
-//     });
-// }
-
-// //Función para eliminar datos de manera permanente
-// function dropById(id) {
-//     $.ajax({
-//         url: 'http://localhost:7033/shoe-store/v1/api/producto/' + id,
-//         method: "DELETE",
-//         headers: {
-//             "Content-Type": "application/json"
-//         }
-//     }).done(function (result) {
-//         alert("Registro eliminado exitoso");
-//         loadData();
-//         clearData();
-//     }).fail(function (xhr, status, error) {
-//         console.error("Error al eliminar el registro:", error);
-//     });
-// }
+//Función para eliminar datos de manera permanente
+function dropById(id) {
+    $.ajax({
+        url: 'http://localhost:7033/shoe-store/v1/api/producto/' + id,
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).done(function (result) {
+        alert("Registro eliminado exitoso");
+        loadData();
+        clearData();
+    }).fail(function (xhr, status, error) {
+        console.error("Error al eliminar el registro:", error);
+    });
+}
 
 // //Función para eliminar datos de manera lógica
 // function deleteById(id) {
@@ -164,18 +140,21 @@ function save() {
 
 //Función para limpiar datos
 function clearData() {
-    $('#cliente').val('');
-    $('#fechaVenta').val('');
+    $('#venta').val('');
     $('#producto').val('');
     $('#cantidad').val('');
     $('#precio').val('');
     $('#iva').val('');
     $('#descuento').val('');
     $('#estado').val('');
+    
+    var btnAgregar = $('button[name="btnAgregar"]');
+    btnAgregar.text('Guardar');
+    btnAgregar.attr('onclick', 'save()');
 }
 
 function tablas() {
-    return loadData(), detallesVenta();
+    return loadData();
 }
 
 //Función para mostrar los datos en una tabla
@@ -199,7 +178,8 @@ function loadData() {
                         <td>$${item.producto.precio}.00</td>
                         <td>$${item.subTotal === null ? '0' : item.subTotal}.00</td>
                 <td>${item.estado === true ? 'PENDIENTE PAGO' || 'PAGADA' : 'CANCELADA'}</td>
-                <td><button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modal" onclick='detallesVenta()'>Ver Detalles</button></td>
+                <td><button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick='findById(${item.id})'>Editar</button></td>
+                    <td><button class="btn btn-danger" onclick='dropById(${item.id})'>Eliminar</button></td>
             </tr>`
                 });
             } else {

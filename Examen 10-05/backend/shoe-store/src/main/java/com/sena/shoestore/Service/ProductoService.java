@@ -2,9 +2,11 @@ package com.sena.shoestore.Service;
 
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sena.shoestore.DTO.IProductoDto;
 import com.sena.shoestore.Entity.Producto;
 import com.sena.shoestore.IRepository.IBaseRepository;
 import com.sena.shoestore.IRepository.IProductoRepository;
@@ -26,7 +28,7 @@ public class ProductoService extends ABaseService<Producto> implements IProducto
 	}
 
     @Override
-    public List<Producto> getList() throws Exception {
+    public List<IProductoDto> getList() throws Exception {
         return repository.getList();
     }
 }

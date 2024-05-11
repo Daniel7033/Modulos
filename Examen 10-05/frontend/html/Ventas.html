@@ -29,7 +29,6 @@
 <body>
 
     <!-- Barra de navegación -->
-
     <nav class="navbar bg-body-tertiary fixed-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Shoes Store</a>
@@ -70,10 +69,6 @@
     </nav>
     <br><br><br>
     <h2>Ventas</h2><br>
-    <p>Metodo de filtrado</p>
-    <div class="col-6">
-        <input class="form-control" id="myInput" type="text" placeholder="Nombre del cliente..."><br>
-    </div>
     <div>
         <!-- Modal -->
         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -197,13 +192,4 @@
 <script>
     tablas();
     autocomplete();
-    //Filtrado
-    $(document).ready(function () {
-        $("#myInput").on("keyup", function () {
-            var value = $(this).val().toLowerCase();
-            $("#resultData tr").filter(function () {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
-        });
-    });
 </script>

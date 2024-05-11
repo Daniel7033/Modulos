@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sena.shoestore.DTO.ApiResponseDto;
 import com.sena.shoestore.Entity.Producto;
 import com.sena.shoestore.IService.IProductoService;
+import com.sena.shoestore.DTO.IProductoDto;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -20,11 +21,11 @@ public class ProductoController extends ABaseController<Producto, IProductoServi
         super(service, "Producto");
     }
     @GetMapping("/dashboard")
-    public ResponseEntity<ApiResponseDto<List<Producto>>> show(){
+    public ResponseEntity<ApiResponseDto<List<IProductoDto>>> show(){
 			try{
-				return ResponseEntity.ok(new ApiResponseDto<List<Producto>>("Datos obtenidos", service.getList(), true));
+				return ResponseEntity.ok(new ApiResponseDto<List<IProductoDto>>("Datos obtenidos", service.getList(), true));
 			} catch (Exception e){
-				return ResponseEntity.internalServerError().body(new ApiResponseDto<List<Producto>>(e.getMessage(), null, false));
+				return ResponseEntity.internalServerError().body(new ApiResponseDto<List<IProductoDto>>(e.getMessage(), null, false));
 			}
 	}
 }

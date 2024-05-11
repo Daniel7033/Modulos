@@ -11,7 +11,7 @@ function loadData() {
                 data.forEach(function (item) {
                     html +=
                         `<tr>
-                    <td>${item.id}</td> 
+                    <td>${item.id}</td>
                     <td>${item.nombreProducto}</td> 
                     <td>${item.cantidad}</td>
                 </tr>`

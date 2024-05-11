@@ -154,17 +154,18 @@ function deleteById(id) {
 
 //Función para limpiar datos
 function clearData() {
-    //$('#tipoIdentificacion').val('');
     $('#identificacion').val('');
     $('#nombreCliente').val('');
     $('#apellidoCliente').val('');
     $('#telefono').val('');
     $('#ciudad').val('');
-    //$('#direccion').val('');
     $('#numeral').val(''); 
     $('#numeral2').val("");
     $('#descripcion').val("");
-    //$('#estado').val('');
+    
+    var btnAgregar = $('button[name="btnAgregar"]');
+    btnAgregar.text('Guardar');
+    btnAgregar.attr('onclick', 'save()');
 }
 
 //Función para mostrar los datos en una tabla
@@ -200,6 +201,73 @@ function loadData() {
         },
         error: function (error) {
             console.error('Error en la función: ', error);
+        }
+    });
+}
+
+//Filtrado
+
+function filtrarNombre(){
+    var nombreCliente = $('#nombreCliente').val();
+    $.ajax({
+        url: 'http://localhost:7033/shoe-store/v1/api/cliente/nombre/' + nombreCliente,
+        method: 'GET',
+        dataType: 'json',
+        success: function (response) {
+            var html = '';
+            var data = response.data;
+            clearData();
+            if (Array.isArray(data)) {
+                data.forEach(function (item) {
+                    html += loadData(item);
+                });
+            }
+            $('#resultData').html(html);
+        },
+        error: function (error) {
+            console.error('Error: ', error);
+        }
+    });
+}
+function filtrarCiudad(){
+    var ciudad = $('#ciudad').val();
+    $.ajax({
+        url: 'http://localhost:7033/shoe-store/v1/api/cliente/ciudad/' + ciudad,
+        method: 'GET',
+        dataType: 'json',
+        success: function (response) {
+            var html = '';
+            var data = response.data;
+            if (Array.isArray(data)) {
+                data.forEach(function (item) {
+                    html += loadData(item);
+                });
+            }
+            $('#resultData').html(html);
+        },
+        error: function (error) {
+            console.error('Error: ', error);
+        }
+    });
+}
+function filtrarEstado(){
+    var estado = ($('#estado').val());
+    $.ajax({
+        url: 'http://localhost:7033/shoe-store/v1/api/cliente/estado/' + estado,
+        method: 'GET',
+        dataType: 'json',
+        success: function (response) {
+            var html = '';
+            var data = response.data;
+            if (Array.isArray(data)) {
+                data.forEach(function (item) {
+                    html += loadData(item);
+                });
+            }
+            $('#resultData').html(html);
+        },
+        error: function (error) {
+            console.error('Error: ', error);
         }
     });
 }

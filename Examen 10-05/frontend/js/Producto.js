@@ -118,6 +118,9 @@ function clearData() {
     $('#iva').val('');
     $('#descuento').val('');
     $('#estado').val('');
+    var btnAgregar = $('button[name="btnAgregar"]');
+    btnAgregar.text('Guardar');
+    btnAgregar.attr('onclick', 'save()');
 }
 
 //Función para mostrar los datos en una tabla

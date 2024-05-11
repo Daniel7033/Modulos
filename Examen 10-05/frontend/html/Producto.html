@@ -69,8 +69,6 @@
     </nav>
     <br><br><br>
     <h2>Productos</h2><br>
-    <p>Metodo de filtrado por nombre o estado:</p>
-    <input class="form-control" id="myInput" type="text" placeholder="Search.."><br>
     <div>
         <!-- Modal -->
         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -196,12 +194,4 @@
 </html>
 <script>
     loadData();
-    $(document).ready(function () {
-        $("#myInput").on("keyup", function () {
-            var value = $(this).val().toLowerCase();
-            $("#resultData tr").filter(function () {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
-        });
-    });
 </script>

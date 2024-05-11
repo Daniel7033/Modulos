@@ -73,8 +73,30 @@
     <br><br><br>
 
     <h2>Clientes</h2><br>
-    <p>Metodo de filtrado por nombre, apellido, ciudad o estado:</p>  
-    <input class="form-control" id="myInput" type="text" placeholder="Search.."><br>
+    <div>
+        <!-- Tristemente no sirve el filtrado -->
+        <div class="row g-4">
+            <div class="col-sm-4">
+                <label class="col-form-label">Filtrado por Nombre</label>
+                <input type="text" class="form-control" id="nombreCliente">
+                <button class="btn" onclick="filtrarNombre()">Filtrar</button>
+            </div>
+            <div class="col-sm-4">
+                <label class="col-form-label">Filtrado por Ciudad</label>
+                <input type="text" class="form-control" id="ciudad">
+                <button class="btn" onclick="filtrarCiudad()">Filtrar</button>
+            </div>
+            <div class="col-sm-4">
+                <label class="col-form-label">Filtrado por Estado</label>
+                <select class="form-control" name="" id="estado">
+                    <option value="true">Activo</option>
+                    <option value="false">Inactivo</option>
+                </select>
+                <button class="btn" onclick="filtrarEstado()">Filtrar</button>
+            </div>
+        </div>
+    </div><br>
+
     <div>
         <!-- Modal -->
         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -207,14 +229,4 @@
 <script>
     enums();
     loadData();
-
-    //Filtrado
-    $(document).ready(function () {
-        $("#myInput").on("keyup", function () {
-            var value = $(this).val().toLowerCase();
-            $("#resultData tr").filter(function () {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
-        });
-    });
 </script>
