@@ -45,10 +45,22 @@
                 <div class="offcanvas-body">
                     <ul class="navbar-nav justify-content-start flex-grow-1 pe-3">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="../html/Producto.html">Productos</a>
+                            <a class="nav-link active" aria-current="page" href="../html/Dashboard.html">Dashboard</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="../html/Cliente.html">Cliente</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="../html/Producto.html">Productos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Ventas
+                              </a>
+                              <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="../html/Ventas.html">Registro</a></li>
+                                <li><a class="dropdown-item" href="../html/DescripcionVentas.html">Descripción</a></li>
+                              </ul>
                         </li>
                     </ul>
                 </div>
@@ -57,8 +69,8 @@
     </nav>
     <br><br><br>
     <h2>Productos</h2><br>
-  <p>Metodo de filtrado por nombre o estado:</p>  
-  <input class="form-control" id="myInput" type="text" placeholder="Search.."><br>
+    <p>Metodo de filtrado por nombre o estado:</p>
+    <input class="form-control" id="myInput" type="text" placeholder="Search.."><br>
     <div>
         <!-- Modal -->
         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -136,10 +148,10 @@
                                         <option value="0">INACTIVO</option>
                                     </select>
                                 </div>
+                            </fieldset>
+                        </form>
+                        <!-- Final del formulario -->
                     </div>
-                    </fieldset>
-                    </form>
-                    <!-- Final del formulario -->
                     <div class="modal-footer">
                         <!-- Botones de aciiones -->
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -149,8 +161,7 @@
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Final Modal -->
+        <!-- Final Modal -->
     </div>
 
     <!-- Tabla -->

@@ -15,7 +15,7 @@ public class Ventas extends ABaseEntity{
     @Column(name = "fecha_venta", nullable = false)
     private Date fechaVenta;
 
-    @Column(name = "total", length = 45, nullable = false)
+    @Column(name = "total", length = 45, nullable = true)
     private String total;
 
     @ManyToOne(fetch = FetchType.EAGER)

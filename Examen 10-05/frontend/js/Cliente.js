@@ -154,14 +154,17 @@ function deleteById(id) {
 
 //Función para limpiar datos
 function clearData() {
-    $('#tipoIdentificacion').val('');
+    //$('#tipoIdentificacion').val('');
     $('#identificacion').val('');
     $('#nombreCliente').val('');
     $('#apellidoCliente').val('');
     $('#telefono').val('');
     $('#ciudad').val('');
-    $('#direccion').val('');
-    $('#estado').val('');
+    //$('#direccion').val('');
+    $('#numeral').val(''); 
+    $('#numeral2').val("");
+    $('#descripcion').val("");
+    //$('#estado').val('');
 }
 
 //Función para mostrar los datos en una tabla

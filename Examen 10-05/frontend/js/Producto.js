@@ -138,8 +138,8 @@ function loadData() {
                     <td>${item.descripcion}</td>
                     <td>${item.cantidad}</td>
                     <td>$${item.precio}.00</td>
-                    <td>${item.iva}%</td>
-                    <td>${item.descuento}%</td>
+                    <td>${item.iva === null ? '0' : item.iva }%</td>
+                    <td>${item.descuento === null ? '0' : item.descuento }%</td>
                     <td>${item.estado === true ? 'ACTIVO' : 'INACTIVO'}</td>
                     <td><button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick='findById(${item.id})'>Editar</button></td>
                     <td><button class="btn btn-danger" onclick='dropById(${item.id})'>Eliminar</button></td>

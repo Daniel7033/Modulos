@@ -10,10 +10,10 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "descripcion_ventas")
 public class DescripcionVentas extends ABaseEntity{
-    @Column(name = "nombre_producto", length = 45, nullable = false)
+    @Column(name = "nombre_producto", length = 45, nullable = true)
     private String nombreProducto;
 
-    @Column(name = "precio", nullable = false)
+    @Column(name = "precio", nullable = true)
     private Double precio;
     
     @Column(name = "cantidad", nullable = false)
@@ -22,7 +22,7 @@ public class DescripcionVentas extends ABaseEntity{
     @Column(name = "descuento", nullable = true)
     private Double descuento;
 
-    @Column(name = "sub_total", nullable = false)
+    @Column(name = "sub_total", nullable = true)
     private Double subTotal;
     
     @ManyToOne(fetch = FetchType.EAGER)

@@ -1,5 +1,7 @@
 package com.sena.shoestore.Service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,4 +24,9 @@ public class ProductoService extends ABaseService<Producto> implements IProducto
 	public void delete(Long id) {
 		repository.deleteById(id);
 	}
+
+    @Override
+    public List<Producto> getList() throws Exception {
+        return repository.getList();
+    }
 }
